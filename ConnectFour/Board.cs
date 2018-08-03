@@ -1,4 +1,6 @@
-﻿namespace ConnectFour
+﻿using System;
+
+namespace ConnectFour
 {
     class Board
     {
@@ -12,6 +14,9 @@
             Rows = rows;
             Columns = columns;
             _board = new Space[rows, columns];
+           
+
         }
+
     }
 }

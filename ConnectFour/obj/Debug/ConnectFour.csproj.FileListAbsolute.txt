@@ -1,0 +1,7 @@
+C:\AsosGit\ConnectFour\ConnectFour\bin\Debug\ConnectFour.exe.config
+C:\AsosGit\ConnectFour\ConnectFour\bin\Debug\ConnectFour.exe
+C:\AsosGit\ConnectFour\ConnectFour\bin\Debug\ConnectFour.pdb
+C:\AsosGit\ConnectFour\ConnectFour\obj\Debug\ConnectFour.csprojAssemblyReference.cache
+C:\AsosGit\ConnectFour\ConnectFour\obj\Debug\ConnectFour.csproj.CoreCompileInputs.cache
+C:\AsosGit\ConnectFour\ConnectFour\obj\Debug\ConnectFour.exe
+C:\AsosGit\ConnectFour\ConnectFour\obj\Debug\ConnectFour.pdb
