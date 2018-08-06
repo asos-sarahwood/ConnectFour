@@ -2,6 +2,6 @@
 {
     class Disc
     {
-        public static string Colour { get; set; }
+        public DiscColour Colour { get; set; }
     }
 }

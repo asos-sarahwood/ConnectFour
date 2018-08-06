@@ -6,12 +6,14 @@ namespace ConnectFour
     {
         private readonly Board _board;
        
-        public Game(int rows, int columns)
+        public Game()
         {
-           _board = new Board(rows, columns);
-            
+           _board = new Board();            
         }
 
-       
+        public override string ToString()
+        {
+            return _board.ToString();
+        }
     }
 }

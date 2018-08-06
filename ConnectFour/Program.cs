@@ -10,7 +10,8 @@ namespace ConnectFour
     {
         static void Main(string[] args)
         {
-            Game connectFour = new Game(6,7);
+            Game connectFour = new Game();
+            Console.Write(connectFour.ToString());
         }
     }
 }
