@@ -29,17 +29,22 @@ namespace ConnectFour
                         {
                             boardString += columnCounter;
                         }
-
-                    }
-
+                    }  
                     else
                     {
+                       
                         if (columnCounter == 0)
                         {
                             boardString += rowCounter;
                         }
-                    }
+                        else
+                        {
+                            _board[rowCounter-1, columnCounter-1] = new Space();
 
+                            boardString += "x";
+
+                        }
+                    }
                 }
 
                 boardString += "\n";
