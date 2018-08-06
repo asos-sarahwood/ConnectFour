@@ -31,26 +31,26 @@ namespace ConnectFour
                         }
                     }  
                     else
-                    {
-                       
+                    {                      
                         if (columnCounter == 0)
                         {
                             boardString += rowCounter;
                         }
                         else
                         {
-                            _board[rowCounter-1, columnCounter-1] = new Space();
-
-                            boardString += "x";
-
+                            _board[rowCounter - 1, columnCounter - 1] = new Space();
                         }
                     }
                 }
-
                 boardString += "\n";
             }
-
             return boardString;
+        }
+
+        public Space[] GetColumn(int column)
+        {
+
+            return null;
         }
     }
 }
