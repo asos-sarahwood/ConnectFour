@@ -1,9 +1,8 @@
 ﻿namespace ConnectFour
 {
-
-    enum DiscColour
+    public enum DiscColour
     {
-        Red,
-        Yellow
+        R,
+        Y
     }
 }

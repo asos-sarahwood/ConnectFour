@@ -1,6 +1,5 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading;
+﻿
+using System;
 
 namespace ConnectFour
 {
@@ -11,45 +10,45 @@ namespace ConnectFour
         private readonly Space[,] _board;
 
         public Board()
-        {     
-            _board = new Space[Rows, Columns];           
+        {
+            _board = new Space[Rows, Columns];
+            PopulateBoardWithSpaces();
+            DrawBoard(_board);
         }
 
-        public override string ToString()
+        private void PopulateBoardWithSpaces()
         {
-            var boardString = " ";
-
-            for (int  rowCounter = 0;  rowCounter <= Rows;  rowCounter++)
-            {
-                for (int columnCounter = 0; columnCounter <= Columns; columnCounter++)
+           for (int r = 0; r < Rows; r++)
+           {
+                for (int c = 0; c < Columns; c++)
                 {
-                    if (rowCounter == 0)
+                    _board[r, c] = new Space();
+                }
+            }
+        }
+
+        public void DrawBoard(Space[,] board)
+        {
+            for (int row = 1; row < Rows; row++)
+            {
+                Console.Write("");
+                for (int column = 1; column < Columns; column++)
+                {
+                    if (board[row, column].Disc == null)
                     {
-                        if (columnCounter != 0)
-                        {
-                            boardString += columnCounter;
-                        }
-                    }  
+                        Console.Write("|_");
+                    }
                     else
-                    {                      
-                        if (columnCounter == 0)
-                        {
-                            boardString += rowCounter;
-                        }
-                        else
-                        {
-                            _board[rowCounter - 1, columnCounter - 1] = new Space();
-                        }
+                    {
+                        Console.Write(board[row, column].Disc.ToString());
                     }
                 }
-                boardString += "\n";
+                Console.Write("| \n");
             }
-            return boardString;
         }
 
         public Space[] GetColumn(int column)
         {
-
             return null;
         }
     }

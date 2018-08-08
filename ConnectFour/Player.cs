@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ConnectFour
 {
-    class Player
-    {
-        public readonly string Name;
-    }
+ 
+        public struct playerInfo
+        {
+            public String playerName;
+            public DiscColour playerDisc;
+        };  
 }
