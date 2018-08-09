@@ -6,16 +6,13 @@ namespace ConnectFour
     {
         static void Main(string[] args)
         {
-            Game connectFour = new Game();
-            
-         
+            Console.WriteLine("Let's play connect four!");
 
-            while (!connectFour.HasWinner)
-            {
-                var column = Console.ReadLine();
-                connectFour.Play(Int32.Parse(column));
-                
-            }
+            Console.WriteLine();
+          
+            Game connectFour = new Game();
+            connectFour._board.Play();
+          
         }
     }
 }

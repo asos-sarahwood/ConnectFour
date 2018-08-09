@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ConnectFour
 {
  
-        public struct playerInfo
+        public class Player
         {
             public String playerName;
             public DiscColour playerDisc;
