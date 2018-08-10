@@ -128,7 +128,7 @@ namespace ConnectFour
         private bool CheckForWinner(Space[,] board, Player currentPlayer)
         {          
             bool winner = false;
-            var discChecker = currentPlayer.discColour;
+            var discPlayed = currentPlayer.discColour;
 
             for (int A = 6; A >= 1; --A)
             {
@@ -137,10 +137,41 @@ namespace ConnectFour
                     var disc = board[A, B].Disc;
                     if (disc != null)
                     {
-                        if (disc.Colour == discChecker &&
-                            board[A - 1, B - 1]?.Disc.Colour == discChecker &&
-                            board[A - 2, B - 2]?.Disc.Colour == discChecker &&
-                            board[A - 3, B - 3]?.Disc.Colour == discChecker)
+                        if (disc.Colour == discPlayed &&
+                            board[A - 1, B - 1].Disc.Colour == discPlayed &&
+                            board[A - 2, B - 2].Disc.Colour == discPlayed &&
+                            board[A - 3, B - 3].Disc.Colour == discPlayed)
+                        {
+                            winner = true;
+                        }
+                        if (board[A, B].Disc.Colour == discPlayed &&
+                            board[A, B - 1].Disc.Colour == discPlayed &&
+                            board[A, B - 2].Disc.Colour == discPlayed &&
+                            board[A, B - 3].Disc.Colour == discPlayed)
+                        {
+                            winner = true;
+                        }
+
+                        if (board[A, B].Disc.Colour == discPlayed &&
+                            board[A - 1, B].Disc.Colour == discPlayed &&
+                            board[A - 2, B].Disc.Colour == discPlayed &&
+                            board[A - 3, B].Disc.Colour == discPlayed)
+                        {
+                            winner = true;
+                        }
+
+                        if (board[A, B].Disc.Colour == discPlayed &&
+                            board[A - 1, B + 1].Disc.Colour == discPlayed &&
+                            board[A - 2, B + 2].Disc.Colour == discPlayed &&
+                            board[A - 3, B + 3].Disc.Colour == discPlayed)
+                        {
+                            winner = true;
+                        }
+
+                        if (board[A, B].Disc.Colour == discPlayed &&
+                            board[A, B + 1].Disc.Colour == discPlayed &&
+                            board[A, B + 2].Disc.Colour == discPlayed &&
+                            board[A, B + 3].Disc.Colour == discPlayed)
                         {
                             winner = true;
                         }
