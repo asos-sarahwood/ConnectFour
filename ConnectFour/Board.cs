@@ -36,13 +36,14 @@ namespace ConnectFour
                 Console.Write("");
                 for (int column = 1; column < Columns; column++)
                 {
-                    if (board[row, column].Disc == null)
+                    if (board[row, column].State == SpaceState.N
+                        )
                     {
                         Console.Write("|_");
                     }
                     else
                     {
-                        Console.Write("|{0}",board[row, column].Disc.ToString());
+                        Console.Write("|{0}",board[row, column].State.ToString());
                     }
                 }
                 Console.Write("| \n");
@@ -55,13 +56,13 @@ namespace ConnectFour
             PlayerOne = new Player
             {
                 playerName = Console.ReadLine(),
-                discColour = DiscColour.R
+                discColour = SpaceState.R
             };
             Console.WriteLine("Player Two please enter your name: ");
             PlayerTwo = new Player
             {
                 playerName = Console.ReadLine(),
-                discColour = DiscColour.Y
+                discColour = SpaceState.Y
             };
             Console.WriteLine("{0} is playing with red discs", PlayerOne.playerName);
             Console.WriteLine("{0} is playing with yellow discs", PlayerTwo.playerName);
@@ -134,48 +135,53 @@ namespace ConnectFour
             {
                 for (int B = 7; B >= 1; --B)
                 {
-                    var disc = board[A, B].Disc;
-                    if (disc != null)
-                    {
-                        if (disc.Colour == discPlayed &&
-                            board[A - 1, B - 1].Disc.Colour == discPlayed &&
-                            board[A - 2, B - 2].Disc.Colour == discPlayed &&
-                            board[A - 3, B - 3].Disc.Colour == discPlayed)
-                        {
-                            winner = true;
-                        }
-                        if (board[A, B].Disc.Colour == discPlayed &&
-                            board[A, B - 1].Disc.Colour == discPlayed &&
-                            board[A, B - 2].Disc.Colour == discPlayed &&
-                            board[A, B - 3].Disc.Colour == discPlayed)
-                        {
-                            winner = true;
-                        }
+                    var disc = board[A, B].State;
+                    Console.WriteLine(disc);
+                    //if (disc != null)
+                    //{
+                    //    if (checkIfNeighbouringDiscExist)
+                    //    {
+                    //    }
 
-                        if (board[A, B].Disc.Colour == discPlayed &&
-                            board[A - 1, B].Disc.Colour == discPlayed &&
-                            board[A - 2, B].Disc.Colour == discPlayed &&
-                            board[A - 3, B].Disc.Colour == discPlayed)
-                        {
-                            winner = true;
-                        }
+                    //    if (disc.Colour == discPlayed &&
+                    //        board[A - 1, B - 1].Disc.Colour == discPlayed &&
+                    //        board[A - 2, B - 2].Disc.Colour == discPlayed &&
+                    //        board[A - 3, B - 3].Disc.Colour == discPlayed)
+                    //    {
+                    //        winner = true;
+                    //    }
+                    //    if (board[A, B].Disc.Colour == discPlayed &&
+                    //        board[A, B - 1].Disc.Colour == discPlayed &&
+                    //        board[A, B - 2].Disc.Colour == discPlayed &&
+                    //        board[A, B - 3].Disc.Colour == discPlayed)
+                    //    {
+                    //        winner = true;
+                    //    }
 
-                        if (board[A, B].Disc.Colour == discPlayed &&
-                            board[A - 1, B + 1].Disc.Colour == discPlayed &&
-                            board[A - 2, B + 2].Disc.Colour == discPlayed &&
-                            board[A - 3, B + 3].Disc.Colour == discPlayed)
-                        {
-                            winner = true;
-                        }
+                    //    if (board[A, B].Disc.Colour == discPlayed &&
+                    //        board[A - 1, B].Disc.Colour == discPlayed &&
+                    //        board[A - 2, B].Disc.Colour == discPlayed &&
+                    //        board[A - 3, B].Disc.Colour == discPlayed)
+                    //    {
+                    //        winner = true;
+                    //    }
 
-                        if (board[A, B].Disc.Colour == discPlayed &&
-                            board[A, B + 1].Disc.Colour == discPlayed &&
-                            board[A, B + 2].Disc.Colour == discPlayed &&
-                            board[A, B + 3].Disc.Colour == discPlayed)
-                        {
-                            winner = true;
-                        }
-                    }
+                    //    if (board[A, B].Disc.Colour == discPlayed &&
+                    //        board[A - 1, B + 1].Disc.Colour == discPlayed &&
+                    //        board[A - 2, B + 2].Disc.Colour == discPlayed &&
+                    //        board[A - 3, B + 3].Disc.Colour == discPlayed)
+                    //    {
+                    //        winner = true;
+                    //    }
+
+                    //    if (board[A, B].Disc.Colour == discPlayed &&
+                    //        board[A, B + 1].Disc.Colour == discPlayed &&
+                    //        board[A, B + 2].Disc.Colour == discPlayed &&
+                    //        board[A, B + 3].Disc.Colour == discPlayed)
+                    //    {
+                    //        winner = true;
+                    //    }
+                    //}
                 }
             }
             return winner;
@@ -203,9 +209,10 @@ namespace ConnectFour
             bool dropped = false;
             for (int i = Rows - 1; i > 0; i--)
             {            
-                if (board[i, columnChosen].Disc == null && dropped == false)
+                if (board[i, columnChosen].State == SpaceState.N && dropped == false)
                 {
-                    board[i, columnChosen].Disc = new Disc {Colour = active.discColour};
+                    board[i, columnChosen].State = active.discColour;
+                        //new Disc {Colour = active.discColour};
                     dropped = true;
                 }
             }

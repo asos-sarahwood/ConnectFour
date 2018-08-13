@@ -7,6 +7,6 @@ namespace ConnectFour
         public class Player
         {
             public String playerName;
-            public DiscColour discColour;
+            public SpaceState discColour;
         };  
 }
