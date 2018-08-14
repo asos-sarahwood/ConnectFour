@@ -5,8 +5,8 @@ namespace ConnectFour
 {
     class Board
     {
-        public readonly int Rows = 7;
-        public readonly int Columns = 8;
+        public readonly int Rows = 9;
+        public readonly int Columns = 10;
         public readonly Space[,] _board;
         public Player activePlayer { get; set; }
         public Player PlayerOne { get; set; }
@@ -20,8 +20,8 @@ namespace ConnectFour
 
         private void PopulateBoardWithSpaces()
         {
-           for (int r = 0; r < Rows; r++)
-           {
+            for (int r = 0; r < Rows; r++)
+            {
                 for (int c = 0; c < Columns; c++)
                 {
                     _board[r, c] = new Space();
@@ -31,21 +31,22 @@ namespace ConnectFour
 
         public void DrawBoard(Space[,] board)
         {
-            for (int row = 1; row < Rows; row++)
+            for (int row = 1; row <= 6; row++)
             {
                 Console.Write("");
-                for (int column = 1; column < Columns; column++)
+                for (int column = 1; column <= 7; column++)
                 {
                     if (board[row, column].State == SpaceState.N
-                        )
+                    )
                     {
                         Console.Write("|_");
                     }
                     else
                     {
-                        Console.Write("|{0}",board[row, column].State.ToString());
+                        Console.Write("|{0}", board[row, column].State.ToString());
                     }
                 }
+
                 Console.Write("| \n");
             }
         }
@@ -71,127 +72,57 @@ namespace ConnectFour
 
         public void Play()
         {
-            GetPlayerDetails();
-            bool winner;
-            var full = 0;
-            var again = 0;
-            do
-            {
-                var playerOnesChosenColumn = GetChosenColumn();
-                CheckNextAvailableRow(playerOnesChosenColumn, _board, activePlayer);
-                DrawBoard(_board);
-                CheckForWinner(_board, PlayerOne);
-                winner = CheckForWinner(_board, activePlayer);
-                if (winner == true)
-                {
-                    PlayerHasWon(activePlayer);
-                    again = restart(_board);
-                    if (again == 2)
-                    {
-                        break;
-                    }
-                }
-
-                var playerTwosChosenColumn = GetChosenColumn();
-                CheckNextAvailableRow(playerTwosChosenColumn, _board, activePlayer);
-                DrawBoard(_board);
-                winner = CheckForWinner(_board, activePlayer);
-                if (winner == true)
-                {
-                    PlayerHasWon(activePlayer);
-                    again = restart(_board);
-                    if (again == 2)
-                    {
-                        break;
-                    }
-                }
-                full = FullBoard(_board);
-                if (full == 7)
-                {
-                    Console.WriteLine("The board is full, it is a draw!");
-                    again = restart(_board);
-                }
-            } while (again != 2);
-        }
-
-        static int FullBoard(Space[,] board)
-        {
-            int full;
-            full = 0;
-            for (int i = 1; i <= 7; ++i)
-            {
-                if (board[1, i] != null)
-                    ++full;
-            }
-            return full;
-        }
-
-        private bool CheckForWinner(Space[,] board, Player currentPlayer)
-        {          
             bool winner = false;
-            var discPlayed = currentPlayer.discColour;
+            GetPlayerDetails();
 
-            for (int A = 6; A >= 1; --A)
+            while (winner == false)
             {
-                for (int B = 7; B >= 1; --B)
-                {
-                    var disc = board[A, B].State;
-                    Console.WriteLine(disc);
-                    //if (disc != null)
-                    //{
-                    //    if (checkIfNeighbouringDiscExist)
-                    //    {
-                    //    }
+                var ChosenColumn = GetChosenColumn();
+                CheckNextAvailableRow(ChosenColumn);
+                DrawBoard(_board);
 
-                    //    if (disc.Colour == discPlayed &&
-                    //        board[A - 1, B - 1].Disc.Colour == discPlayed &&
-                    //        board[A - 2, B - 2].Disc.Colour == discPlayed &&
-                    //        board[A - 3, B - 3].Disc.Colour == discPlayed)
-                    //    {
-                    //        winner = true;
-                    //    }
-                    //    if (board[A, B].Disc.Colour == discPlayed &&
-                    //        board[A, B - 1].Disc.Colour == discPlayed &&
-                    //        board[A, B - 2].Disc.Colour == discPlayed &&
-                    //        board[A, B - 3].Disc.Colour == discPlayed)
-                    //    {
-                    //        winner = true;
-                    //    }
+                winner = CheckForWinner();
 
-                    //    if (board[A, B].Disc.Colour == discPlayed &&
-                    //        board[A - 1, B].Disc.Colour == discPlayed &&
-                    //        board[A - 2, B].Disc.Colour == discPlayed &&
-                    //        board[A - 3, B].Disc.Colour == discPlayed)
-                    //    {
-                    //        winner = true;
-                    //    }
+                SwitchPlayer();
+            } 
 
-                    //    if (board[A, B].Disc.Colour == discPlayed &&
-                    //        board[A - 1, B + 1].Disc.Colour == discPlayed &&
-                    //        board[A - 2, B + 2].Disc.Colour == discPlayed &&
-                    //        board[A - 3, B + 3].Disc.Colour == discPlayed)
-                    //    {
-                    //        winner = true;
-                    //    }
-
-                    //    if (board[A, B].Disc.Colour == discPlayed &&
-                    //        board[A, B + 1].Disc.Colour == discPlayed &&
-                    //        board[A, B + 2].Disc.Colour == discPlayed &&
-                    //        board[A, B + 3].Disc.Colour == discPlayed)
-                    //    {
-                    //        winner = true;
-                    //    }
-                    //}
-                }
-            }
-            return winner;
+            //if (winner is true)
+            //{
+            //    PlayerWin();
+            //}
         }
 
-        static void PlayerHasWon(Player activePlayer)
+        private bool CheckForWinner()
+        {
+            var discPlayed = activePlayer.discColour;
+
+            for (int row = 1; row < 8; row++)
+            {
+                for (int column = 1; column < 9; column++)
+                {
+                    if (discPlayed == SpaceState.N)
+                    {
+                        break;
+                    }
+
+                    if (_board[row - 1, column].State == discPlayed &&
+                        _board[row - 2, column].State == discPlayed &&
+                        _board[row - 3, column].State == discPlayed
+                    )
+                    {
+                        return true;
+                    }
+
+                }
+            }
+
+            return false;
+        }
+
+        public void PlayerWin()
         {
             Console.WriteLine(activePlayer.playerName + " Connected Four, You Win!");
         }
-
         public int GetChosenColumn()
         {
             int columnChosen;
@@ -202,40 +133,32 @@ namespace ConnectFour
             } while (columnChosen < 1 || columnChosen > 7);
 
             return columnChosen;
+            
         }
 
-        public void CheckNextAvailableRow(int columnChosen, Space[,] board, Player active)
+        public void CheckNextAvailableRow(int columnChosen)
         {
             bool dropped = false;
-            for (int i = Rows - 1; i > 0; i--)
-            {            
-                if (board[i, columnChosen].State == SpaceState.N && dropped == false)
+            for (int i = Rows - 3; i > 0; i--)
+            {
+                if (_board[i, columnChosen].State == SpaceState.N && dropped == false)
                 {
-                    board[i, columnChosen].State = active.discColour;
-                        //new Disc {Colour = active.discColour};
-                    dropped = true;
+                    _board[i, columnChosen].State = activePlayer.discColour;
+                    dropped = true;                  
                 }
             }
         }
 
-        static int restart(Space[,] board)
+        public void SwitchPlayer()
         {
-            int restart;
-            Console.WriteLine("Would you like to restart? Yes(1) No(2): ");
-            restart = Convert.ToInt32(Console.ReadLine());
-            if (restart == 1)
+            if (activePlayer == PlayerOne)
             {
-                for (int i = 1; i <= 6; i++)
-                {
-                    for (int ix = 1; ix <= 7; ix++)
-                    {
-                        board[i, ix] = null;
-                    }
-                }
+                activePlayer = PlayerTwo;
             }
-            else
-                Console.WriteLine("Goodbye!");
-            return restart;
+            else if (activePlayer == PlayerTwo)
+            {
+                activePlayer = PlayerOne;
+            }
         }
     }
 }
