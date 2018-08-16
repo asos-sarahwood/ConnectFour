@@ -1,6 +1,4 @@
-﻿using System.Security.Policy;
-
-namespace ConnectFour
+﻿namespace ConnectFour
 {
     class Space
     {

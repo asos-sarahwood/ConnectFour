@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization.Formatters;
-
-namespace ConnectFour
+﻿namespace ConnectFour
 {
     class Disc
     {

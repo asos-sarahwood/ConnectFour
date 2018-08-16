@@ -8,7 +8,7 @@ namespace ConnectFour
         public readonly int Rows = 9;
         public readonly int Columns = 10;
         public readonly Space[,] _board;
-        public Player activePlayer { get; set; }
+        public Player ActivePlayer { get; set; }
         public Player PlayerOne { get; set; }
         public Player PlayerTwo { get; set; }
 
@@ -55,32 +55,32 @@ namespace ConnectFour
             Console.WriteLine("Player one, please enter your name: ");
             PlayerOne = new Player
             {
-                playerName = Console.ReadLine(),
-                discColour = SpaceState.R
+                PlayerName = Console.ReadLine(),
+                DiscColour = SpaceState.R
             };
             Console.WriteLine("Player Two please enter your name: ");
             PlayerTwo = new Player
             {
-                playerName = Console.ReadLine(),
-                discColour = SpaceState.Y
+                PlayerName = Console.ReadLine(),
+                DiscColour = SpaceState.Y
             };
-            Console.WriteLine("{0} is playing with red discs", PlayerOne.playerName);
-            Console.WriteLine("{0} is playing with yellow discs", PlayerTwo.playerName);
-            activePlayer = PlayerOne;
+            Console.WriteLine("{0} is playing with red discs", PlayerOne.PlayerName);
+            Console.WriteLine("{0} is playing with yellow discs", PlayerTwo.PlayerName);
+            ActivePlayer = PlayerOne;
         }
 
         public void Play()
         {
             bool winner = false;
-            int boardFull = 0;
             GetPlayerDetails();
             while (winner == false)
             {
-                var ChosenColumn = GetChosenColumn();
-                CheckNextAvailableRow(ChosenColumn);
+                var chosenColumn = GetChosenColumn();
+                CheckNextAvailableRow(chosenColumn);
                 DrawBoard(_board);
                 winner = CheckForWinner();
-                boardFull = BoardFull();
+
+                var boardFull = BoardFull();
                 if (winner is true)
                 {
                     PlayerWin();
@@ -114,7 +114,7 @@ namespace ConnectFour
 
         private bool CheckForWinner()
         {
-            var discPlayed = activePlayer.discColour;
+            var discPlayed = ActivePlayer.DiscColour;
 
             for (int row = 6; row >= 1; --row)
             {
@@ -204,7 +204,7 @@ namespace ConnectFour
 
         public void PlayerWin()
         {
-            Console.WriteLine(activePlayer.playerName + ", You Win!");
+            Console.WriteLine(ActivePlayer.PlayerName + ", You Win!");
         }
 
         public int GetChosenColumn()
@@ -212,7 +212,7 @@ namespace ConnectFour
             int columnChosen;
             do
             {
-                Console.WriteLine("{0}, enter a column number between 1 and 7: ", activePlayer.playerName);
+                Console.WriteLine("{0}, enter a column number between 1 and 7: ", ActivePlayer.PlayerName);
                 columnChosen = Convert.ToInt32(Console.ReadLine());
             } while (columnChosen < 1 || columnChosen > 7);
 
@@ -226,7 +226,7 @@ namespace ConnectFour
             {
                 if (_board[i, columnChosen].State == SpaceState.N && dropped == false)
                 {
-                    _board[i, columnChosen].State = activePlayer.discColour;
+                    _board[i, columnChosen].State = ActivePlayer.DiscColour;
                     dropped = true;                  
                 }
             }
@@ -234,13 +234,13 @@ namespace ConnectFour
 
         public void SwitchPlayer()
         {
-            if (activePlayer == PlayerOne)
+            if (ActivePlayer == PlayerOne)
             {
-                activePlayer = PlayerTwo;
+                ActivePlayer = PlayerTwo;
             }
-            else if (activePlayer == PlayerTwo)
+            else if (ActivePlayer == PlayerTwo)
             {
-                activePlayer = PlayerOne;
+                ActivePlayer = PlayerOne;
             }
         }
     }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Media;
-
-namespace ConnectFour
+﻿namespace ConnectFour
 {
     class Game
     {
