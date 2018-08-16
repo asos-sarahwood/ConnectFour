@@ -72,24 +72,44 @@ namespace ConnectFour
         public void Play()
         {
             bool winner = false;
+            int boardFull = 0;
             GetPlayerDetails();
-
             while (winner == false)
             {
                 var ChosenColumn = GetChosenColumn();
                 CheckNextAvailableRow(ChosenColumn);
                 DrawBoard(_board);
-
                 winner = CheckForWinner();
-
+                boardFull = BoardFull();
                 if (winner is true)
                 {
                     PlayerWin();
                 }
-
+                if (boardFull == 7)
+                {
+                    BoardIsFull();
+                }
                 SwitchPlayer();
             }
+        }
 
+        public int BoardFull()
+        {
+            int counter = 0;
+            for (int column = 1; column <= 7; column++)
+            {
+                if (_board[1,column].State != SpaceState.N)
+                {
+                    counter++;
+                }
+            }
+
+            return counter;
+        }
+
+        private void BoardIsFull()
+        {
+            Console.WriteLine("Draw! Start game again");
         }
 
         private bool CheckForWinner()
@@ -184,7 +204,7 @@ namespace ConnectFour
 
         public void PlayerWin()
         {
-            Console.WriteLine(activePlayer.playerName + " Connected Four, You Win!");
+            Console.WriteLine(activePlayer.playerName + ", You Win!");
         }
 
         public int GetChosenColumn()
