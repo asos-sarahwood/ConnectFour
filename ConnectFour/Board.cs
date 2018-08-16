@@ -46,7 +46,6 @@ namespace ConnectFour
                         Console.Write("|{0}", board[row, column].State.ToString());
                     }
                 }
-
                 Console.Write("| \n");
             }
         }
@@ -83,39 +82,103 @@ namespace ConnectFour
 
                 winner = CheckForWinner();
 
-                SwitchPlayer();
-            } 
+                if (winner is true)
+                {
+                    PlayerWin();
+                }
 
-            //if (winner is true)
-            //{
-            //    PlayerWin();
-            //}
+                SwitchPlayer();
+            }
+
         }
 
         private bool CheckForWinner()
         {
             var discPlayed = activePlayer.discColour;
 
-            for (int row = 1; row < 8; row++)
+            for (int row = 6; row >= 1; --row)
             {
-                for (int column = 1; column < 9; column++)
+
+                for (int column = 7; column >= 1; --column)
                 {
                     if (discPlayed == SpaceState.N)
                     {
                         break;
                     }
+                    //check down 
+                    if (_board[row,column].State == discPlayed &&
+                        _board[row + 1, column].State == discPlayed &&
+                        _board[row + 2, column].State == discPlayed &&
+                        _board[row + 3, column].State == discPlayed
+                    )
+                    {
+                        return true;
+                    }
 
-                    if (_board[row - 1, column].State == discPlayed &&
+                    //check up
+                    if (_board[row, column].State == discPlayed &&
+                        _board[row - 1, column].State == discPlayed &&
                         _board[row - 2, column].State == discPlayed &&
                         _board[row - 3, column].State == discPlayed
                     )
                     {
                         return true;
                     }
-
+                    //check right
+                    if (_board[row, column].State == discPlayed &&
+                        _board[row, column + 1].State == discPlayed &&
+                        _board[row, column + 2].State == discPlayed &&
+                        _board[row, column + 3].State == discPlayed
+                    )
+                    {
+                        return true;
+                    }
+                    //check left
+                    if (_board[row, column].State == discPlayed &&
+                        _board[row, column - 1].State == discPlayed &&
+                        _board[row, column - 2].State == discPlayed &&
+                        _board[row, column - 3].State == discPlayed
+                    )
+                    {
+                        return true;
+                    }
+                    //check diagonally 
+                    if (_board[row, column].State == discPlayed &&
+                        _board[row - 1, column - 1].State == discPlayed &&
+                        _board[row - 2, column - 2].State == discPlayed &&
+                        _board[row - 3, column - 3].State == discPlayed
+                    )
+                    {
+                        return true;
+                    }
+                    //check diagonally
+                    if (_board[row, column].State == discPlayed &&
+                        _board[row + 1, column - 1].State == discPlayed &&
+                        _board[row + 2, column - 2].State == discPlayed &&
+                        _board[row + 3, column - 3].State == discPlayed
+                    )
+                    {
+                        return true;
+                    }
+                    if (_board[row, column].State == discPlayed &&
+                        _board[row + 1, column + 1].State == discPlayed &&
+                        _board[row + 2, column + 2].State == discPlayed &&
+                        _board[row + 3, column + 3].State == discPlayed
+                    )
+                    {
+                        return true;
+                    }
+                    //check diagonally 
+                    if (_board[row, column].State == discPlayed &&
+                        _board[row - 1, column + 1].State == discPlayed &&
+                        _board[row - 2, column + 2].State == discPlayed &&
+                        _board[row - 3, column + 3].State == discPlayed
+                    )
+                    {
+                        return true;
+                    }
                 }
             }
-
             return false;
         }
 
@@ -123,6 +186,7 @@ namespace ConnectFour
         {
             Console.WriteLine(activePlayer.playerName + " Connected Four, You Win!");
         }
+
         public int GetChosenColumn()
         {
             int columnChosen;
@@ -133,7 +197,6 @@ namespace ConnectFour
             } while (columnChosen < 1 || columnChosen > 7);
 
             return columnChosen;
-            
         }
 
         public void CheckNextAvailableRow(int columnChosen)
